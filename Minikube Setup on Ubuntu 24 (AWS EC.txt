@@ -1,0 +1,59 @@
+Minikube Setup on Ubuntu 24 (AWS EC2)
+1. EC2 Instance Requirements
+
+
+OS: Ubuntu 24.04
+Instance type: t3.medium or higher 
+Minimum:
+2 CPU
+4 GB RAM
+Security group:
+Allow SSH (22)
+Optional: NodePort range (30000–32767)
+2. Update System
+sudo apt update && sudo apt upgrade -y
+3. Install Docker (Minikube driver)
+
+
+sudo apt install -y docker.io
+
+Start & enable Docker:
+
+sudo systemctl enable docker
+sudo systemctl start docker
+
+Add user to docker group:
+
+sudo usermod -aG docker $USER
+newgrp docker
+
+Verify:
+
+docker --version
+Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+
+Verify:
+
+kubectl version --client
+ Install Minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+Verify:
+
+minikube version
+ Start Minikube (Important Step)
+
+On AWS, use Docker driver:
+
+minikube start --driver=docker
+
+
+
+minikube start --driver=docker --memory=3000 --cpus=2
+7. Check Cluster
+kubectl get nodes
+
