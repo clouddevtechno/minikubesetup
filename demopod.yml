@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  labels:
+    app: tomcatserver
+spec:
+  containers:
+    - name: tomapp
+      image: tomcat:8.0
+      ports:
+        - containerPort: 8080
+    
+#kubectl apply -f demopod.yml
+ #kubectl get pods
+ #kubectl delete pod podname
+#kubectl get  pods -o wide
